@@ -1,0 +1,45 @@
+﻿@page "/lrnB/bindprop"
+@using LearnBlazor.Components.Models
+<h3>Product - Data Binding</h3>
+
+Name:  @product.Name <br/>
+Active: @product.IsActive <br/>
+Price: @product.Price <br/>
+This Product is: @(product.IsActive?"Active":"Inactive") <br/>
+
+IsActive:  <input type="checkbox" @bind="@product.IsActive"/><br/>
+
+Input Price : <input type="number" @bind="@product.Price" @bind:event="oninput" /><br/>
+Product Properties:
+<select @bind="selectedProp">
+    @foreach (var prop in product.ProductProperties)
+    {
+        <option value="@prop.Value">@prop.Key</option>
+
+    }
+
+</select><br/>
+Selected Prop : @selectedProp 
+
+
+@code {
+    private string selectedProp = "";
+
+    Models.Product product = new()
+    {
+        Id = 1,
+        Name = "Product1",
+        IsActive = true,
+        Price =5.00,
+        ProductProperties = new List<Models.Product_Prop>()
+        {
+            new Models.Product_Prop {Id=1 , Key="Color",Value="Red" } ,
+            new Models.Product_Prop {Id=2 , Key="Size",Value="20oz" } ,
+            new Models.Product_Prop {Id=3 , Key="Flavor",Value="Rose" } 
+        }
+
+
+    };
+
+
+}
